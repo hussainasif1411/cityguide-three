@@ -1,10 +1,20 @@
 //Adding all required dependencies
-import React from "react";
+import React, {useState} from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 //Footer Page
 const Footer = ({ props }) => {
     // alert(JSON.stringify(props));
+
+    const[dynamicColor, setDynamicColor] = useState("");
+    const[isPressed, setIsPressed] = useState(false);
+
+    const changeColor = () => {
+        if(isPressed){
+            setDynamicColor("blue");
+        }
+    }
+
     return (
 
         <View style={styles.footer} >
@@ -22,7 +32,12 @@ const Footer = ({ props }) => {
             </View>
 
             <View style={styles.seperateFoooterTab}>
-                <TouchableOpacity onPress={() => props.navigate('BrowseCategories')}>
+                <TouchableOpacity style={{backgroundColor: dynamicColor}} onPress={() => {
+                    setIsPressed(true);
+                    changeColor();
+                    props.navigate('BrowseCategories')
+                }
+                }>
                     <View style={styles.imageView}>
                         <Image style={styles.footerIcon} source={require('../assets/hamburger-menu-icon.png')}></Image>
                     </View>
@@ -48,13 +63,13 @@ const Footer = ({ props }) => {
             </View>
 
             <View style={styles.seperateFoooterTab}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => props.navigate('ContactUs')}>
                     <View style={styles.imageView}>
-                        <Image style={styles.footerIcon} source={require('../assets/profile-icon.png')}></Image>
+                        <Image style={styles.contactUsIcon} source={require('../assets/contact-us-icon.png')}></Image>
                     </View>
 
                     <View>
-                        <Text style={styles.footerTabText}>Profile</Text>
+                        <Text style={styles.footerTabText}>Contact Us</Text>
                     </View>
 
                 </TouchableOpacity>
@@ -66,13 +81,18 @@ const Footer = ({ props }) => {
 //Styling Footer Page
 const styles = StyleSheet.create({
     footer: {
-        height: 80,
-        backgroundColor: '#FBFCFC',
+        height: 60,
+        backgroundColor: '#FFFFFF',
         flexDirection: "row",
         paddingHorizontal: 25,
-        paddingVertical: 20
+        paddingVertical: 20,
+        borderTopWidth: 0.5,
+        borderTopColor: "#A9A9A9",
+        //backgroundColor: '#1E90FF',
+        //elevation: 5
     },
     seperateFoooterTab: {
+        //tintColor: {dynamicColor},
         width: "25%",
         flexDirection: "column",
         opacity: 0.5,
@@ -83,11 +103,16 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     footerIcon: {
-        height: 30,
-        width: 30,
+        height: 20,
+        width: 20,
     },
     footerTabText: {
         color: '#585858',
+    },
+    contactUsIcon: {
+        height: 20,
+        width: 20,
+        tintColor: "#585858"
     }
 });
 

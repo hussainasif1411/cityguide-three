@@ -67,25 +67,13 @@ const BrowseRestaurants = ({ navigation }) => {
         //   {loading && <Text style={{color: "black"}}>Loading more...</Text>}
         // </View>
 
-        <View style={styles.footerButton}>
-          <TouchableOpacity
-            activeOpacity={0.9}
-            onPress={() => getData(true, token)}
-            //disabled={!loading}
-            // disabled={restaurant.map((item, index) => {
-            //   console.log(index);
-            //   { index === restaurant.length - 1 && true }
-            // })}
-            //On Click of button load more data
-            style={styles.loadMoreBtn}>
-            <Text style={styles.btnText}>{loading ? "Loading" : "Load More"}</Text>
-            {loading ? (
-              <ActivityIndicator
-                color="white"
-                style={{ marginLeft: 8 }} />
-            ) : null}
-
-          </TouchableOpacity>
+        <View style={styles.loading}>
+          <Text style={styles.loadingText}>{loading ? "Loading" : null}</Text>
+          {loading ? (
+            <ActivityIndicator
+              color="#808080"
+              style={{ marginLeft: 8 }} />
+          ) : null}
         </View>
       )
     } else {
@@ -172,11 +160,14 @@ const BrowseRestaurants = ({ navigation }) => {
 
             <View style={{ flexDirection: "column" }}>
               <View style={{ flexDirection: "row", marginLeft: 5, marginTop: 5 }}>
-                <View>
+                <View style={{marginTop: 1}}>
                   <Image style={styles.gpsIcon} source={require('../assets/gps.png')} />
                 </View>
                 <View>
-                  <Text style={styles.locationText}>{item.address}</Text>
+                  <Text
+                    numberOfLines={2}
+                    adjustsFontSizeToFit
+                    style={styles.locationText}>{item.address}</Text>
                 </View>
                 <View style={{ marginLeft: 5 }}>
                   <Image style={styles.starIcon} source={require('../assets/star.png')} ></Image>
@@ -216,8 +207,15 @@ const BrowseRestaurants = ({ navigation }) => {
       restaurantList={restaurant}
       restaurantName={item.name} 
       /> */}
-
       <View style={styles.header}>
+
+        {/* <View style={{ marginTop: 50 }}>
+          {loading ? (
+            <ActivityIndicator
+              color="black"
+              style={{ marginLeft: 8 }} />
+          ) : null}
+        </View> */}
 
         <View style={{ width: "10%", alignItems: "center", justifyContent: "center" }}>
           <TouchableOpacity onPress={() => navigation.navigate('BrowseCategories')}>
@@ -259,8 +257,11 @@ const BrowseRestaurants = ({ navigation }) => {
         renderItem={renderItem}
         //extraData={restaurant}
         keyExtractor={item => item.id}
-        //ListFooterComponent={renderFooter}
-        onEndReached={() => getData(true, token)}
+        ListFooterComponent={renderFooter}
+        onEndReached={() => {
+          getData(true, token);
+        }
+        }
       />
       {/* <View style={styles.footerButton}>
         <TouchableOpacity
@@ -311,8 +312,8 @@ const styles = StyleSheet.create({
   },
   gpsIcon: {
     tintColor: "#818589",
-    height: 12,
-    width: 12,
+    height: 10,
+    width: 10,
   },
   locationText: {
     color: '#A9A9A9',
@@ -351,23 +352,24 @@ const styles = StyleSheet.create({
     height: 15,
     width: 20,
   },
-  footerButton: {
+  loading: {
+    marginTop: 200,
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
   },
-  loadMoreBtn: {
-    padding: 10,
-    //backgroundColor: '#800000',
-    backgroundColor: '#1E90FF',
-    borderRadius: 4,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btnText: {
-    color: 'white',
+  // loadMoreBtn: {
+  //   padding: 10,
+  //   //backgroundColor: '#800000',
+  //   backgroundColor: '#1E90FF',
+  //   borderRadius: 4,
+  //   flexDirection: 'row',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  loadingText: {
+    color: '#808080',
     fontSize: 15,
     textAlign: 'center',
   },

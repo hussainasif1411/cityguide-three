@@ -26,12 +26,12 @@ const BrowseCategories = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header heading="Browse Categories"
-      navigationProp={navigation}
-      navigationRoute={'Login'} />
+        navigationProp={navigation}
+        navigationRoute={'Login'} />
       <ScrollView>
 
         <View style={styles.browseCategoryRowFlex}>
-          {allCategory.map((item,i) => {
+          {allCategory.map((item, i) => {
             return (
               <View key={i}>
 
@@ -42,38 +42,31 @@ const BrowseCategories = ({ navigation }) => {
                     {item.category === "restaurants" &&
                       <Image style={styles.browseImageIcon} source={require('../assets/restaurant-icon.png')} />
                     }
-
                     {item.category === "hotels" &&
                       <Image style={styles.browseImageIcon} source={require('../assets/hotel-icon.jpg')} />
                     }
-
                     {item.category === "nightlife" &&
                       <Image style={styles.browseImageIcon} source={require('../assets/nightlife-icon.jpg')} />
                     }
-
                     {item.category === "shopping" &&
                       <Image style={styles.browseImageIcon} source={require('../assets/shopping-icon.png')} />
                     }
-
                     {item.category === "culture" &&
                       <Image style={styles.browseImageIcon} source={require('../assets/culture-icon.png')} />
                     }
-
                     {item.category === "popular" &&
                       <Image style={styles.browseImageIcon} source={require('../assets/heart-icon-blue.png')} />
                     }
-
-                    <Text style={styles.categoriesText}>{item.category}</Text>
+                    <View style={{ marginTop: 8 }}>
+                      <Text style={styles.categoriesText}>{item.category}</Text>
+                    </View>
                   </TouchableOpacity>
                 </View>
-
               </View>
             )
           }
           )}
-
         </View>
-
       </ScrollView>
       <Footer props={navigation} />
     </View>
@@ -85,52 +78,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "#FDFEFE",
   },
   browseCategoryRowFlex:
   {
     flexDirection: "row",
     flexWrap: "wrap",
-    alignItems: "flex-start",
-    //paddingHorizontal: 20,
-    paddingVertical: 20,
-    //marginTop: 20,
+    //alignItems: "flex-start",
+    paddingVertical: 15,
     justifyContent: "center",
-    marginBottom: 40
+    marginLeft: 15,
   },
   columnViewStyle: {
     width: "90%",
-    height: "30%",
-    //height: "120%",
+    height: 120,
     backgroundColor: "#FDFEFE",
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    //marginLeft: 10,
-    textAlign: "center",
+    paddingVertical: 40,
+    paddingHorizontal: 40,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
+    borderWidth: 0.3,
     borderColor: "#D3D3D3",
     borderRadius: 5,
-    marginTop: 10,
-    //marginBottom: 20
+    marginTop: 18,
   },
   browseImageIcon: {
     width: 80,
-    height: 80,
+    height: 70,
+    padding: 30
   },
   categoriesText: {
     textAlign: "center",
-    marginTop: 5,
     fontSize: 15,
     textTransform: "capitalize"
   }
 });
 
 export default BrowseCategories;
-
-
 
 //27 July
 
